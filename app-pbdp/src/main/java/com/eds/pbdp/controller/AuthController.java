@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"})
 public class AuthController {
 
     private final AuthService authService;
@@ -21,8 +21,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         logger.info("Login attempt: {}", request.getUsername());
-        AuthResponse response = authService.authenticate(request);
+        AuthResponse authResponse = authService.authenticate(request);
         logger.info("Login success: {}", request.getUsername());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(authResponse);
     }
 }
